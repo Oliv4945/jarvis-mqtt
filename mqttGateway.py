@@ -11,11 +11,6 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--server', help='MQTT server address or hotsname')
     args = parser.parse_args()
 
-    print "server", args.server
-    print "topic", args.topic
-    print "port", args.port
-    print "message", args.message
-    
     # Publish the message
     publish.single(args.topic, args.message.decode('utf-8'), hostname=args.server, port=args.port)
 
