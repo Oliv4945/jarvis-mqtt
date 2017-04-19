@@ -1,0 +1,1 @@
+python plugins/jarvis-mqtt/mqttGateway.py -m="Exiting" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port"
