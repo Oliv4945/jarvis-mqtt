@@ -10,13 +10,15 @@ For multi-language plugin:
 - optionally write the Description / Usage sections in several languages
 -->
 ## Description
-Description of your Plugin
+This plugin publishes all Jarvis activity to MQTT
 
 ## Usage
-```
-You: example of how to trigger the command
-Jarvis: output from Jarvis
-```
+Topics published by the plugin
+- `$jv_pg_mqtt_topic/said` - Everything said by Jarvis
+- `$jv_pg_mqtt_topic/events` - All events (Starting, Entering command, stop speaking...)
+
+Topic subscribed by the plugin
+- `$jv_pg_mqtt_topic/say` - Publish to the topic and Jarvis will say it (TODO)
 
 ## Author
-[your name](http://your.website)
+[Oliv4945](http://iopush.net)
