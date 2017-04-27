@@ -1,2 +1,7 @@
-python plugins/jarvis-mqtt/mqttGateway.py -m="Start speaking" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
-python plugins/jarvis-mqtt/mqttGateway.py -m="$1" -t="$jv_pg_mqtt_topic/said" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Send event
+python $DIR/../mqttGateway.py -m="Start speaking" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
+
+# Send said data
+python $DIR/../mqttGateway.py -m="$1" -t="$jv_pg_mqtt_topic/said" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log

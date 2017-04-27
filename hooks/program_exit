@@ -1,1 +1,2 @@
-python plugins/jarvis-mqtt/mqttGateway.py -m="Exiting Jarvis" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+python $DIR/../mqttGateway.py -m="Exiting Jarvis" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
