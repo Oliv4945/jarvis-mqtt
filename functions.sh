@@ -6,3 +6,10 @@
 # pg for PluGin
 # XX is a short code for your plugin, ex: ww for Weather Wunderground
 # You can use translations provided in the language folders functions.sh
+
+function jv_pg_mqtt_start () {
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    jv_debug "Starting MQTT subscriber to $jv_pg_mqtt_server:$jv_pg_mqtt_port$jv_pg_mqtt_subscribe"
+    nohup python $DIR/mqttGateway.py --port="$jv_pg_mqtt_port" --server="$jv_pg_mqtt_server" --subscribe="$jv_pg_mqtt_subscribe" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log &
+}
+
