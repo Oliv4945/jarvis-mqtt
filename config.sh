@@ -3,7 +3,7 @@
 jv_pg_mqtt_server="localhost"
 
 # Launch a MQTT server (mosquitto) with Jarvis (true/false)
-jv_pg_mqtt_launch_server=true
+jv_pg_mqtt_launch_server=false
 
 # Jarvis server port
 jv_pg_mqtt_port=1883
