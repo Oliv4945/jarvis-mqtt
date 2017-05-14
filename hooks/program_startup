@@ -1,3 +1,8 @@
+# Start MQTT server (if requested)
+if [ "$jv_pg_mqtt_launch_server" = true ]; then
+  mosquitto -p $jv_pg_mqtt_port 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log &
+fi
+
 # Start publisher daemon
 jv_pg_mqtt_start
 
