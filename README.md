@@ -18,7 +18,7 @@ Topics published by the plugin
 - `$jv_pg_mqtt_topic/events` - All events (Starting, Entering command, stop speaking...)
 
 Topic subscribed by the plugin
-- `$jv_pg_mqtt_topic/say` - Publish to the topic and Jarvis will say it (TODO)
+- `$jv_pg_mqtt_topic/say` - Publish to the topic and Jarvis will say it
 
 ## Author
 [Oliv4945](http://iopush.net)
