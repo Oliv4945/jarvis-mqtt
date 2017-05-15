@@ -11,5 +11,6 @@ jv_pg_mqtt_port=1883
 # Jarvis root topic to subscribe/publish, without trailing slash
 jv_pg_mqtt_topic="/Jarvis"
 
-# Jarvis topic to subscribe to
-jv_pg_mqtt_subscribe="/Jarvis/say"
+# Jarvis topic to subscribe to (to ask Jarvis to say/execute)
+jv_pg_mqtt_subscribe_say="/Jarvis/say"
+jv_pg_mqtt_subscribe_execute="/Jarvis/execute"

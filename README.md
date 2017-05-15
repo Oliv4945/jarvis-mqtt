@@ -19,6 +19,7 @@ Topics published by the plugin
 
 Topic subscribed by the plugin
 - `$jv_pg_mqtt_topic/say` - Publish to the topic and Jarvis will say it
+- `$jv_pg_mqtt_topic/execute` - Publish to the topic and Jarvis will execute it
 
 ## Author
 [Oliv4945](http://iopush.net)

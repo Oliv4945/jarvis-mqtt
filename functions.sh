@@ -10,6 +10,6 @@
 function jv_pg_mqtt_start () {
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     jv_debug "Starting MQTT subscriber to $jv_pg_mqtt_server:$jv_pg_mqtt_port$jv_pg_mqtt_subscribe"
-    nohup python $DIR/mqttGateway.py --port="$jv_pg_mqtt_port" --server="$jv_pg_mqtt_server" --subscribe="$jv_pg_mqtt_subscribe" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log &
+    nohup python $DIR/mqttGateway.py --port="$jv_pg_mqtt_port" --server="$jv_pg_mqtt_server" --subscribeSay="$jv_pg_mqtt_subscribe_say" --subscribeExecute="$jv_pg_mqtt_subscribe_execute" 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log &
 }
 
