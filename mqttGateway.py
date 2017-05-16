@@ -24,20 +24,20 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--subscribeExecute', help='MQTT topic to subscribe, all reveived data will be executed by Jarvis')
     args = parser.parse_args()
 
-    # Store topics to say/execute commands
-    subscribeSay = args.subscribeSay
-    subscribeExecute = args.subscribeExecute
-
     # Publish the message
     if args.message is not None:
         publish.single(topic=args.topic, payload=args.message.decode('utf-8'), hostname=args.server, port=args.port)
         exit()    
     # Subscribe to a topic
-    if (args.subscribeSay is not None) and (args.subscribeExecute is not None):
+    if (args.subscribeSay != '') or (args.subscribeExecute != ''):
         mqttc = client.Client()
         mqttc.on_message = on_message_cb
         mqttc.connect(host=args.server, port=args.port)
-        mqttc.subscribe(topic=subscribeSay, qos=0)
-        mqttc.subscribe(topic=subscribeExecute, qos=0)
+        if args.subscribeSay != '': 
+            subscribeSay = args.subscribeSay
+            mqttc.subscribe(topic=subscribeSay, qos=0)
+        if args.subscribeExecute != '':
+            subscribeExecute = args.subscribeExecute
+            mqttc.subscribe(topic=subscribeExecute, qos=0)
         mqttc.loop_forever()
-        
+
