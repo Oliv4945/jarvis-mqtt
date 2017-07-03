@@ -3,6 +3,7 @@ from paho.mqtt import publish, client
 import argparse
 import os
 from subprocess import call
+import ssl
 
 subscribeSay = ""
 subscribeExecute = ""
@@ -22,16 +23,23 @@ if __name__ == "__main__":
     parser.add_argument('-s', '--server', help='MQTT server address or hotsname')
     parser.add_argument('-u', '--subscribeSay', help='MQTT topic to subscribe, all reveived data will be said by Jarvis')
     parser.add_argument('-e', '--subscribeExecute', help='MQTT topic to subscribe, all reveived data will be executed by Jarvis')
+    parser.add_argument('--ssl', help='Pass the argument to activate SSL', action='store_true')
     args = parser.parse_args()
 
     # Publish the message
     if args.message is not None:
-        publish.single(topic=args.topic, payload=args.message.decode('utf-8'), hostname=args.server, port=args.port)
+        if args.ssl:
+            tls_dict = { 'ca_certs':"/etc/ssl/certs/ca-certificates.crt", 'tls_version':ssl.PROTOCOL_TLSv1_2}
+        else:
+            tls_dict = None
+        publish.single(topic=args.topic, payload=args.message.decode('utf-8'), hostname=args.server, port=args.port, tls=tls_dict)
         exit()    
     # Subscribe to a topic
     if (args.subscribeSay != '') or (args.subscribeExecute != ''):
         mqttc = client.Client()
         mqttc.on_message = on_message_cb
+        if args.ssl:
+            mqttc.tls_set(ca_certs="/etc/ssl/certs/ca-certificates.crt", tls_version=ssl.PROTOCOL_TLSv1_2)
         mqttc.connect(host=args.server, port=args.port)
         if args.subscribeSay != '': 
             subscribeSay = args.subscribeSay

@@ -15,3 +15,6 @@ jv_pg_mqtt_topic="/Jarvis"
 # Both are optionnal, 'jv_pg_mqtt_subscribe_execute' disabled by default
 jv_pg_mqtt_subscribe_say="$jv_pg_mqtt_topic/say"
 #jv_pg_mqtt_subscribe_execute="$jv_pg_mqtt_topic/execute"
+
+# Use SSL, optionnal. Comment to disable
+#jv_pg_mqtt_ssl="--ssl"
