@@ -24,15 +24,25 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--subscribeSay', help='MQTT topic to subscribe, all reveived data will be said by Jarvis')
     parser.add_argument('-e', '--subscribeExecute', help='MQTT topic to subscribe, all reveived data will be executed by Jarvis')
     parser.add_argument('--ssl', help='Pass the argument to activate SSL', action='store_true')
+    parser.add_argument('-a', '--auth', help='login:password, if required by the server')
     args = parser.parse_args()
 
     # Publish the message
     if args.message is not None:
+        tls_dict = None
+        mqttAuth = None
         if args.ssl:
             tls_dict = { 'ca_certs':"/etc/ssl/certs/ca-certificates.crt", 'tls_version':ssl.PROTOCOL_TLSv1_2}
-        else:
-            tls_dict = None
-        publish.single(topic=args.topic, payload=args.message.decode('utf-8'), hostname=args.server, port=args.port, tls=tls_dict)
+        if args.auth:
+            mqttAuth = args.auth.split(':')
+            mqttAuth = {'username':mqttAuth[0], 'password':mqttAuth[1]}
+        publish.single(topic=args.topic,
+                       payload=args.message.decode('utf-8'),
+                       hostname=args.server,
+                       port=args.port,
+                       tls=tls_dict,
+                       auth=mqttAuth
+                      )
         exit()    
     # Subscribe to a topic
     if (args.subscribeSay != '') or (args.subscribeExecute != ''):
@@ -40,6 +50,9 @@ if __name__ == "__main__":
         mqttc.on_message = on_message_cb
         if args.ssl:
             mqttc.tls_set(ca_certs="/etc/ssl/certs/ca-certificates.crt", tls_version=ssl.PROTOCOL_TLSv1_2)
+        if args.auth:
+            mqttAuth = args.auth.split(':')
+            mqttc.username_pw_set(mqttAuth[0], mqttAuth[1])
         mqttc.connect(host=args.server, port=args.port)
         if args.subscribeSay != '': 
             subscribeSay = args.subscribeSay

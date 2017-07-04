@@ -1,7 +1,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+# Build MQTT options
+if [ ! -z "$jv_pg_mqtt_auth" ]; then
+    jv_pg_mqtt_options="--auth $jv_pg_mqtt_auth"
+fi
+
 # Send event
-python $DIR/../mqttGateway.py -m="Start speaking" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" $jv_pg_mqtt_ssl 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
+python $DIR/../mqttGateway.py -m="Start speaking" -t="$jv_pg_mqtt_topic/events" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" $jv_pg_mqtt_ssl $jv_pg_mqtt_options 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
 
 # Send said data
-python $DIR/../mqttGateway.py -m="$1" -t="$jv_pg_mqtt_topic/said" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" $jv_pg_mqtt_ssl 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log
+python $DIR/../mqttGateway.py -m="$1" -t="$jv_pg_mqtt_topic/said" -s="$jv_pg_mqtt_server" -p="$jv_pg_mqtt_port" $jv_pg_mqtt_ssl $jv_pg_mqtt_options 2>&1 | jv_add_timestamps >>$jv_dir/jarvis.log

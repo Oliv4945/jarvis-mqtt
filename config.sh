@@ -18,3 +18,6 @@ jv_pg_mqtt_subscribe_say="$jv_pg_mqtt_topic/say"
 
 # Use SSL, optionnal. Comment to disable
 #jv_pg_mqtt_ssl="--ssl"
+
+# Use login:password. Comment to disable
+#jv_pg_mqtt_auth="login:password"
